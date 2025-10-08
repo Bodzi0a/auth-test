@@ -18,6 +18,8 @@ app.use(cors({
 app.use(express.json());
 
 // Test route
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Backend działa z MariaDB!' });
 });
