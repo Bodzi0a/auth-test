@@ -3,7 +3,7 @@
 A simple yet secure authentication system built with Node.js, React, and MariaDB featuring JWT-based session management.
 
 # Live Demo
-Check out the live demo: http://bodzi0.it:3000
+Check out the live demo: http://bodzi0.it
 
 ##  Screenshots
 
