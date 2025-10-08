@@ -4,6 +4,9 @@ A simple yet secure authentication system built with Node.js, React, and MariaDB
 
 
 ##  Screenshots
+<img width="1909" height="995" alt="login" src="https://github.com/user-attachments/assets/5881a9da-dabe-48d4-ab92-8e103d7dda7a" />
+<img width="1919" height="956" alt="register" src="https://github.com/user-attachments/assets/006c32eb-7715-4f3a-902c-5b5450f2702a" />
+<img width="1920" height="965" alt="welcome" src="https://github.com/user-attachments/assets/871cb4cf-81b4-4b1c-ba3a-fed9788ee503" />
 
 
 
