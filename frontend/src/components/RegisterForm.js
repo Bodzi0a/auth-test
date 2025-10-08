@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { login } from '../services/authService';
+import { register } from '../services/authService';
 
-function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
+function RegisterForm({ onRegisterSuccess, onSwitchToLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -16,9 +17,8 @@ function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
     e.preventDefault();
     setError('');
 
-    // Validation
-    if (!email || !password) {
-      setError('Email and password are required');
+    if (!email || !password || !confirmPassword) {
+      setError('All fields are required');
       return;
     }
 
@@ -32,13 +32,18 @@ function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
       return;
     }
 
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await login(email, password);
-      onLoginSuccess();
+      await register(email, password);
+      onRegisterSuccess();
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.message || 'Registration failed');
     } finally {
       setLoading(false);
     }
@@ -47,7 +52,7 @@ function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h2>Login</h2>
+        <h2>Register</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -73,16 +78,29 @@ function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
             />
           </div>
 
+          <div className="form-group">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm your password"
+              disabled={loading}
+            />
+          </div>
+
           {error && <div className="error-message">{error}</div>}
 
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? 'Registering...' : 'Register'}
           </button>
         </form>
+
         <p className="switch-form">
-          Don't have an account?{' '}
-          <span onClick={onSwitchToRegister} className="link">
-            Register here
+          Already have an account?{' '}
+          <span onClick={onSwitchToLogin} className="link">
+            Login here
           </span>
         </p>
       </div>
@@ -90,4 +108,4 @@ function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
   );
 }
 
-export default LoginForm;
+export default RegisterForm;
